@@ -3,9 +3,10 @@ class StringCalculator
     return 0 if input.empty?
   
     numbers = parse_input(input)
+    validate_negatives(numbers)
     numbers.sum
   end
-  
+
   private
 
   def self.parse_input(input)
@@ -25,5 +26,10 @@ class StringCalculator
   
   def self.split_numbers(input, delimiter)
     input.split(delimiter).map(&:to_i)
-  end  
+  end
+
+  def self.validate_negatives(numbers)
+    negatives = numbers.select { |num| num < 0 }
+    raise "Negatives not allowed: #{negatives.join(', ')}" unless negatives.empty?
+  end
 end
